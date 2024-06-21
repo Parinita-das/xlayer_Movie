@@ -22,7 +22,6 @@ class AdLoginHandler(tornado.web.RequestHandler, Database):
             username = self.request.arguments.get('username')
             password = self.request.arguments.get('password')
 
-            # Query the database to find the admin with the provided username and password
             query = {
                 'username': username,
                 'password': password

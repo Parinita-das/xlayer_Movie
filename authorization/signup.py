@@ -57,6 +57,11 @@ class UserHandler(tornado.web.RequestHandler, Database):
                 message = 'Invalid Mobile Number'
                 code = 4535
                 raise Exception
+            elif not isinstance(mMobile, str) or not mMobile.isdigit():
+                message = 'Mobile number should contain only digits'
+                code = 4536
+                raise Exception
+            
             
             mPassword = self.request.arguments.get('password')
             if not mPassword:

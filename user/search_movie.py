@@ -12,7 +12,6 @@ class SearchHandlerByTitle(tornado.web.RequestHandler, Database):
         message = ''
 
         try:
-            # Get query parameters  
             mSearch = str(self.get_argument('search'))
             if not mSearch:
                 message = 'Please enter a movie title'
@@ -40,12 +39,10 @@ class SearchHandlerByTitle(tornado.web.RequestHandler, Database):
                 }
             )
 
-            # Process the results
             async for movie in mMovies:
                 movie['_id'] = str(movie.get('_id'))
                 result.append(movie)
 
-            # Check if any results were found
             if result:
                 message = 'Found'
                 code = 2000
@@ -53,6 +50,7 @@ class SearchHandlerByTitle(tornado.web.RequestHandler, Database):
             else:
                 message = 'Not found'
                 code = 4002
+                raise Exception
 
         except Exception as e:
             if not message:
