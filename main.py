@@ -4,10 +4,12 @@ import tornado.web
 from admin.add_city import AddCityHandler
 from admin.add_movie import AddMovieHandler
 from authorization.admin_login import AdLoginHandler
+from user.available_seat import SeatAvailabilityHandler
 from user.booking import BookingHandler
 from admin.del_city import DeleteCityHandler
 from admin.del_movie import DeleteMovieHandler
 from admin.edit_movie import EditMovieHandler
+from user.booking_history import BookingHistoryHandler
 from user.get_seats import BookedSeatsHandler
 from user.select_city import CityDropdownHandler
 from authorization.signup import UserHandler
@@ -23,19 +25,22 @@ class MainHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r"/", MainHandler),
-        (r"/users", UserHandler),
-        (r"/login", LoginHandler),
-        (r"/admin_login", AdLoginHandler),
-        (r"/add_movie", AddMovieHandler),
-        (r"/del_movie", DeleteMovieHandler),
-        (r"/edit_movie", EditMovieHandler),
-        (r"/search_movie", SearchHandlerByTitle),
-        (r"/add_city", AddCityHandler),
-        (r"/del_city", DeleteCityHandler),
-        (r"/select_city", CityDropdownHandler),
-        (r"/booking", BookingHandler),
-        (r"/get_seats", BookedSeatsHandler),
+        (r"/api", MainHandler),
+        (r"/api/users", UserHandler),
+        (r"/api/login", LoginHandler),
+        (r"/api/admin_login", AdLoginHandler),
+        (r"/api/add_movie", AddMovieHandler),
+        (r"/api/del_movie", DeleteMovieHandler),
+        (r"/api/edit_movie", EditMovieHandler),
+        (r"/api/search_movie", SearchHandlerByTitle),
+        (r"/api/add_city", AddCityHandler),
+        (r"/api/del_city", DeleteCityHandler),
+        (r"/api/select_city", CityDropdownHandler),
+        (r"/api/booking", BookingHandler),
+        (r"/api/get_seats", BookedSeatsHandler),
+        (r"/api/booking_history", BookingHistoryHandler),
+        (r"/api/available_seat", SeatAvailabilityHandler),
+
 
       
 
@@ -44,6 +49,6 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8080)
-    print("Server is running on http://localhost:8080")
+    app.listen(2002)
+    print("Server is running on http://localhost:2002")
     tornado.ioloop.IOLoop.current().start()

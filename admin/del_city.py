@@ -4,7 +4,9 @@ from con import Database
 from bson import ObjectId
 
 class DeleteCityHandler(tornado.web.RequestHandler):
-    
+    admin_table = Database.db['admin']
+    city_table = Database.db['city'] 
+
     async def post(self):
         code = 1000
         status = False

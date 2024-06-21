@@ -4,6 +4,7 @@ from con import Database
 
 class SearchHandlerByTitle(tornado.web.RequestHandler, Database):
     movieTable = Database.db['movies']
+    userTable = Database.db['user']
 
     async def get(self):
         code = 4000

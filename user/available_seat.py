@@ -5,11 +5,11 @@ import re
 from datetime import datetime
 from con import Database
 
-class BookedSeatsHandler(tornado.web.RequestHandler, Database):
+class SeatAvailabilityHandler(tornado.web.RequestHandler, Database):
     bookingTable = Database.db['booking']
     movieTable = Database.db['movies']
     cityTable = Database.db['city']
-    userTable = Database.db['user']
+    # userTable = Database.db['user']
 
     async def get(self):
         code = 1000
@@ -34,21 +34,34 @@ class BookedSeatsHandler(tornado.web.RequestHandler, Database):
                 code = 1002
                 raise Exception
 
+            movie = await self.movieTable.find_one({'_id': movie_id})
+            if not movie:
+                message = 'Movie not found'
+                code = 1008
+                raise Exception
+
+            total_seats=80
+            total_seats = movie.get('total_seats', 0)
+
             bookings = self.bookingTable.find({
                 'movie_id': movie_id,
                 'showtime': showtime
             })
 
-            async for i in bookings:
-                result.extend(i.get("seats")) 
+            booked_seats = set()
+            async for booking in bookings:
+                booked_seats.update(booking.get('seats', []))
 
-            if result:
-                code = 2000
-                status = True
-                message = 'Booked seats found'
-            else:
-                code = 4002
-                message = 'No booked seats found'
+            available_seats = [str(i) for i in range(1, total_seats + 1) if str(i) not in booked_seats]
+
+            code = 2000
+            status = True
+            message = 'Seat availability retrieved successfully'
+            result = {
+                'total_seats': total_seats,
+                'booked_seats': list(booked_seats),
+                'available_seats': available_seats
+            }
 
         except Exception as e:
             print(e)

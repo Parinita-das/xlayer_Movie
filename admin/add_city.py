@@ -4,6 +4,7 @@ from con import Database
 
 class AddCityHandler(tornado.web.RequestHandler, Database):
     city_table = Database.db['city'] 
+    admin_table = Database.db['admin']
 
     async def post(self):
         code = 1000

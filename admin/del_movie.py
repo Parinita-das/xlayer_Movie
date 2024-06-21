@@ -4,6 +4,9 @@ import json
 from con import Database 
 
 class DeleteMovieHandler(tornado.web.RequestHandler):
+    admin_table = Database.db['admin']
+    movie_table = Database.db['movies'] 
+
     async def post(self):
         code = 1000
         status = False

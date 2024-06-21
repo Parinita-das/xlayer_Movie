@@ -9,6 +9,7 @@ class BookingHandler(tornado.web.RequestHandler, Database):
     bookingTable = Database.db['booking']
     movieTable = Database.db['movies']
     cityTable = Database.db['city']
+    userTable = Database.db['user']
 
     async def post(self):
         code = 1000
@@ -97,7 +98,6 @@ class BookingHandler(tornado.web.RequestHandler, Database):
                 raise Exception
             
             
-
             total_price  = movie.get('seat_price') * len(seats)
             
 

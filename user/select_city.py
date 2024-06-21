@@ -6,6 +6,8 @@ from bson import json_util
 class CityDropdownHandler(tornado.web.RequestHandler, Database):
     
     city_table = Database.db['city']  
+    userTable = Database.db['user']
+    
     async def get(self):
         code = 4000
         status = False

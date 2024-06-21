@@ -6,6 +6,7 @@ import re
 
 class AddMovieHandler(tornado.web.RequestHandler, Database):
     movie_table = Database.db['movies']
+    admin_table = Database.db['admin']
 
     async def post(self):
         code = 1000
