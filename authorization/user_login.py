@@ -25,7 +25,6 @@ class LoginHandler(tornado.web.RequestHandler, Database):
             mEmail = self.request.arguments.get('email')
             mPassword = self.request.arguments.get('password')
 
-            # Query the database to find the user with the provided email and password
             query = {
                 'email': mEmail,
                 'password': mPassword

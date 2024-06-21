@@ -87,7 +87,6 @@ class UserHandler(tornado.web.RequestHandler, Database):
                 'password': mPassword
             }
 
-            # # Insert the user into the database
             addUser = await self.userTable.insert_one(data)
 
             if addUser.inserted_id:

@@ -3,7 +3,7 @@ import json
 from con import Database
 
 class AddCityHandler(tornado.web.RequestHandler, Database):
-    city_table = Database.db['city']  # Assuming 'cities' is the collection name in MongoDB
+    city_table = Database.db['city'] 
 
     async def post(self):
         code = 1000
